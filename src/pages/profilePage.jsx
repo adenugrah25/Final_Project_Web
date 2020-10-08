@@ -123,8 +123,11 @@ class ProfilePage extends Component {
         this.setState({ openEditPass: false });
       })
       .catch((error) => {
-        console.log(`error edit password : `, error.response ? error.response.data : error);
-        this.setState({ errorMsg: error.response.data})
+        console.log(
+          `error edit password : `,
+          error.response ? error.response.data : error
+        );
+        this.setState({ errorMsg: error.response.data });
       });
   };
 
@@ -132,7 +135,7 @@ class ProfilePage extends Component {
     const { picture } = this.props;
     // const { picture, address, edit } = this.props;
     // const { image } = this.props;
-
+    
     console.log(`username : `, this.props.username);
     console.log(`email : `, this.props.email);
     console.log(`address : `, this.props.address);

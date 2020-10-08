@@ -76,7 +76,7 @@ class HistoryTrans extends React.Component {
           <TableCell>{item.order_number}</TableCell>
           <TableCell>{item.payment_date}</TableCell>
           <TableCell>{item.via_bank}</TableCell>
-          <TableCell>{item.amount}</TableCell>
+          <TableCell>IDR {item.amount.toLocaleString()}</TableCell>
           <TableCell>
             {
               item.transaction_receipt ? <img src={ URL_IMG + item.transaction_receipt} style={{width: 100}} alt="payment-img"
@@ -124,7 +124,7 @@ const styles = {
     backgroundImage: `url(${Wallpaper})`,
     display: "flex",
     flexDirection: "column",
-    paddingLeft: "15vw",
+    paddingLeft: "18vw",
     paddingTop: "5vh",
     paddingRight: "5vw",
   },

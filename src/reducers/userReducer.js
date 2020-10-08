@@ -1,4 +1,4 @@
-import { LOGIN, LOGIN_ERROR, REGISTER, LOG_OUT } from "../actions";
+import { LOGIN, LOGIN_ERROR, REGISTER, LOG_OUT, GET_PROFILE } from "../actions";
 const INITIAL_STATE = {
   //harus sama yg di postman
   id: null,
@@ -9,7 +9,6 @@ const INITIAL_STATE = {
   address: "",
   picture: "",
   errorMsg: "",
-  
 };
 
 export const userReducer = (state = INITIAL_STATE, action) => {
@@ -38,8 +37,15 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         errorMsg: action.payload,
       };
+    case GET_PROFILE:
+      return {
+        ...state,
+        picture: action.payload.picture,
+        address: action.payload.address
+      }  
     case LOG_OUT:
       return INITIAL_STATE;
+
     default:
       return state;
   }

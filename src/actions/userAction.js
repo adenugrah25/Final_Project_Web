@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { URL, LOGIN, LOG_OUT, REGISTER, LOGIN_ERROR } from "./helpers";
+import { URL, LOGIN, LOG_OUT, REGISTER, LOGIN_ERROR, GET_PROFILE } from "./helpers";
 
 export const SignIn = (body) => {
   return async (dispatch) => {
@@ -74,7 +74,11 @@ export const upload = (data) => {
     try {
       const option = { headers: { "Content-Type": "multipart/form-data" } };
       const res = await Axios.post(URL + "/profile/upload/" + localStorage.getItem("id"), data, option)
+      const getProfile = await Axios.get(URL + '/profile/' + localStorage.getItem('id'))
+
+      dispatch({ type: GET_PROFILE, payload: getProfile.data})
       console.log(res.data);
+      console.log(getProfile.data);
     } catch (err) {
       console.log(err ? err.response.data : err);
     }
