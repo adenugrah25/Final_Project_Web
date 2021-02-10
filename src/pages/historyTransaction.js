@@ -12,7 +12,7 @@ import {
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Wallpaper from "../assets/images/Wallpaper.jpg";
-import {URL_IMG} from '../actions'
+import { URL_IMG, URL } from '../actions'
 
 class HistoryTrans extends React.Component {
   constructor(props) {
@@ -26,26 +26,28 @@ class HistoryTrans extends React.Component {
 
   getData = () => {
     Axios.get(`http://localhost:2000/transhistory`)
-    .then((res) => {
-      // console.log(`data : `, res.data);
-      this.setState({ data: res.data });
-    })
-    .catch((err) => console.log(err));
-  }
-
-  approvePayment = async (on) => {
-      console.log('approve : ', on)
-      await Axios.patch(`http://localhost:2000/approvalpayment/${on}`)
       .then((res) => {
         // console.log(`data : `, res.data);
-        this.getData()
+        this.setState({ data: res.data });
       })
       .catch((err) => console.log(err));
   }
 
+  approvePayment = async (on) => {
+    console.log('approve : ', on) // order_number
+    try {
+      await Axios.patch(`http://localhost:2000/approvalpayment/${on}`)
+      await this.getData()
+      await Axios.patch(URL + `/reduceStock/${on}`) // need order status 4
+      await this.getData()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   cancelPayment = async (on) => {
-      // console.log('cancel : ', on)
-      await Axios.patch(`http://localhost:2000/cancelpayment/${on}`)
+    // console.log('cancel : ', on)
+    await Axios.patch(`http://localhost:2000/cancelpayment/${on}`)
       .then((res) => {
         // console.log(`data : `, res.data);
         this.getData()
@@ -79,22 +81,22 @@ class HistoryTrans extends React.Component {
           <TableCell>IDR {item.amount.toLocaleString()}</TableCell>
           <TableCell>
             {
-              item.transaction_receipt ? <img src={ URL_IMG + item.transaction_receipt} style={{width: 100}} alt="payment-img"
+              item.transaction_receipt ? <img src={URL_IMG + item.transaction_receipt} style={{ width: 100 }} alt="payment-img"
               /> : null
             }
           </TableCell>
           <TableCell>{item.status}</TableCell>
           <TableCell>
-              {
-                parseInt(item.payment_status_id) === 1
-                ? 
+            {
+              parseInt(item.payment_status_id) === 1
+                ?
                 <div>
-                    <Button onClick={() => this.approvePayment(item.order_number)}><CheckCircleIcon style={{color: 'lime'}} /></Button>
-                    <Button onClick={() => this.cancelPayment(item.order_number)}><CancelIcon style={{color: '#FC1A04'}}/></Button>
+                  <Button onClick={() => this.approvePayment(item.order_number)}><CheckCircleIcon style={{ color: 'lime' }} /></Button>
+                  <Button onClick={() => this.cancelPayment(item.order_number)}><CancelIcon style={{ color: '#FC1A04' }} /></Button>
                 </div>
                 :
                 <div></div>
-              }
+            }
           </TableCell>
         </TableRow>
       );
@@ -104,7 +106,7 @@ class HistoryTrans extends React.Component {
   render() {
     return (
       <div style={styles.root}>
-        <Paper elevation={3} style={{padding: 15}}>
+        <Paper elevation={3} style={{ padding: 15 }}>
           <h1>Transaction Info</h1>
           <Table>
             <TableHead>{this.renderTableHead()}</TableHead>
