@@ -8,7 +8,6 @@ import {
   TableRow,
   Paper,
   CardMedia,
-  TableFooter,
   TablePagination
 } from "@material-ui/core";
 import Wallpaper from "../assets/images/Wallpaper.jpg";
@@ -61,8 +60,8 @@ class ProductPage extends React.Component {
           <TableCell>{item.id_product}</TableCell>
           <TableCell>{item.product_name}</TableCell>
           <TableCell>{item.product_cate}</TableCell>
-          <TableCell>{item.price_modal}</TableCell>
-          <TableCell>{item.price_sell}</TableCell>
+          <TableCell>IDR {item.price_modal.toLocaleString()}</TableCell>
+          <TableCell>IDR {item.price_sell.toLocaleString()}</TableCell>
           <TableCell>{item.product_stock}</TableCell>
         </TableRow>
       );
@@ -112,7 +111,7 @@ const styles = {
     backgroundImage: `url(${Wallpaper})`,
     display: "flex",
     flexDirection: "column",
-    paddingLeft: "15vw",
+    paddingLeft: "18vw",
     paddingTop: "5vh",
     paddingRight: "5vw",
   },

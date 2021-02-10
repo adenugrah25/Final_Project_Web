@@ -10,22 +10,15 @@ import {
 } from "@material-ui/core";
 import Wallpaper from "../assets/images/Wallpaper.jpg";
 
-class SalesReport extends React.Component {
+class SalesReportPkg extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      salesReport: [],
       package: [],
     };
   }
 
   async componentDidMount() {
-    await Axios.get(`http://localhost:2000/salesreport`)
-      .then((res) => {
-        // console.log(` products data : `, res.data);
-        this.setState({ salesReport: res.data });
-      })
-      .catch((err) => console.log(err));
     await Axios.get(`http://localhost:2000/salesreppkg`)
       .then((res) => {
         // console.log(` products data : `, res.data);
@@ -33,36 +26,6 @@ class SalesReport extends React.Component {
       })
       .catch((err) => console.log(err));
   }
-
-  renderTableHead = () => {
-    return (
-      <TableRow>
-        <TableCell>No</TableCell>
-        <TableCell>Username</TableCell>
-        <TableCell>Order Number</TableCell>
-        <TableCell>Status</TableCell>
-        <TableCell>Total Modal</TableCell>
-        <TableCell>Total Sell</TableCell>
-        <TableCell>Profit</TableCell>
-      </TableRow>
-    );
-  };
-
-  renderTableBody = () => {
-    return this.state.salesReport.map((item, index) => {
-      return (
-        <TableRow key={index}>
-          <TableCell>{index + 1}</TableCell>
-          <TableCell>{item.username}</TableCell>
-          <TableCell>{item.order_number}</TableCell>
-          <TableCell>{item.status}</TableCell>
-          <TableCell>{item.total_modal}</TableCell>
-          <TableCell>{item.total_sell}</TableCell>
-          <TableCell>{item.profit}</TableCell>
-        </TableRow>
-      );
-    });
-  };
 
   renderTableHeadPkg = () => {
     return (
@@ -86,9 +49,9 @@ class SalesReport extends React.Component {
           <TableCell>{item.username}</TableCell>
           <TableCell>{item.order_number}</TableCell>
           <TableCell>{item.package_name}</TableCell>
-          <TableCell>{item.total_modal}</TableCell>
-          <TableCell>{item.package_price}</TableCell>
-          <TableCell>{item.profit}</TableCell>
+          <TableCell>IDR {item.total_modal.toLocaleString()}</TableCell>
+          <TableCell>IDR {item.package_price.toLocaleString()}</TableCell>
+          <TableCell>IDR {item.profit.toLocaleString()}</TableCell>
         </TableRow>
       );
     });
@@ -98,12 +61,7 @@ class SalesReport extends React.Component {
     return (
       <div style={styles.root}>
         <Paper elevation={3} style={styles.paper}>
-          <h1>Sales Report per Transaction</h1>
-          <Table>
-            <TableHead>{this.renderTableHead()}</TableHead>
-            <TableBody>{this.renderTableBody()}</TableBody>
-          </Table>
-          <h1 style={{ marginTop: 20 }}>Sales Report Package</h1>
+          <h1>Sales Report Package</h1>
           <Table>
             <TableHead>{this.renderTableHeadPkg()}</TableHead>
             <TableBody>{this.renderTableBodyPkg()}</TableBody>
@@ -122,13 +80,13 @@ const styles = {
     backgroundImage: `url(${Wallpaper})`,
     display: "flex",
     flexDirection: "column",
-    paddingLeft: "15vw",
+    paddingLeft: "18vw",
     paddingTop: "5vh",
     paddingRight: "5vw",
   },
   paper: {
-    padding: 20,
+    padding: 15,
   },
 };
 
-export default SalesReport;
+export default SalesReportPkg;

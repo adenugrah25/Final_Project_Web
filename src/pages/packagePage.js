@@ -162,7 +162,7 @@ class PackagePage extends React.Component {
           <TableCell>
             <DialogDetails detail={item.details} />
           </TableCell>
-          <TableCell>Rp {item.package_price.toLocaleString()}</TableCell>
+          <TableCell>IDR {item.package_price.toLocaleString()}</TableCell>
           <TableCell>
             <Button
               variant="contained"
@@ -205,7 +205,7 @@ class PackagePage extends React.Component {
     // const { selectedQuantity } = this.state;
     return (
       <div style={styles.root}>
-        <Paper elevation={3}>
+        <Paper elevation={3} style={{ padding: 15 }}>
           <div style={styles.packageinfoandadd}>
             <h1>Packages Info</h1>
             <Button
@@ -408,7 +408,7 @@ const styles = {
     backgroundImage: `url(${Wallpaper})`,
     display: "flex",
     flexDirection: "column",
-    paddingLeft: "15vw",
+    paddingLeft: "18vw",
     paddingTop: "5vh",
     paddingRight: "5vw",
   },
@@ -446,7 +446,6 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: "1%",
   },
   disableBox: {
     borderRadius: 10,

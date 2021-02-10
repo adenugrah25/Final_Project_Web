@@ -23,7 +23,8 @@ import UserInfo from './pages/userInfo'
 import ProductPage from './pages/productPage'
 import PackagePage from './pages/packagePage';
 import DashboardPage from './pages/dashboard'
-import SalesReport from './pages/SalesReport'
+import SalesReportTrans from './pages/SalesReportTrans'
+import SalesReportPkg from './pages/SalesReportPkg'
 import NotFound from './pages/404';
 
 class App extends Component {
@@ -40,7 +41,8 @@ class App extends Component {
                     <Switch>
                         <Route path='/dashboard' component={DashboardPage} exact/>
                         <Route path='/login' component={LoginPage} />
-                        <Route path='/salesReport' component={SalesReport}/>
+                        <Route path='/salesReportTrans' component={SalesReportTrans}/>
+                        <Route path='/salesReportPkg' component={SalesReportPkg}/>
                         <Route path='/userInfo' component={UserInfo}/>
                         <Route path='/productPage' component={ProductPage}/>
                         <Route path='/packagePage' component={PackagePage}/>
